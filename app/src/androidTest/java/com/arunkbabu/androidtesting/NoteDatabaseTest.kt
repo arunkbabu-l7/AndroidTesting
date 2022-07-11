@@ -2,17 +2,18 @@ package com.arunkbabu.androidtesting
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.arunkbabu.androidtesting.persistence.NoteDao
 import com.arunkbabu.androidtesting.persistence.NoteDatabase
 import org.junit.After
 import org.junit.Before
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 abstract class NoteDatabaseTest {
     private lateinit var noteDatabase: NoteDatabase
-
-    internal fun getNoteDao(): NoteDao {
-        return noteDatabase.getNoteDao()
-    }
+    lateinit var noteDao: NoteDao
+        private set
 
     @Before
     internal fun init() {
@@ -20,6 +21,8 @@ abstract class NoteDatabaseTest {
             ApplicationProvider.getApplicationContext(),
             NoteDatabase::class.java
         ).build()
+
+        noteDao = noteDatabase.getNoteDao()
     }
 
     @After

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.arunkbabu.androidtesting.persistence.NoteDao
 import com.arunkbabu.androidtesting.persistence.NoteDatabase
+import com.arunkbabu.androidtesting.repository.NoteRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,7 +14,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNoteDatabase(application: Application) = Room.databaseBuilder(
+    fun provideNoteDatabase(application: Application): NoteDatabase = Room.databaseBuilder(
         application,
         NoteDatabase::class.java,
         NoteDatabase.DB_NAME
@@ -22,4 +23,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideNoteDao(noteDatabase: NoteDatabase) = noteDatabase.getNoteDao()
+
+
+    @Singleton
+    @Provides
+    fun provideNoteRepository(noteDao: NoteDao) = NoteRepository(noteDao)
 }

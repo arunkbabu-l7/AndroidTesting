@@ -11,6 +11,4 @@ abstract class NoteDatabase : RoomDatabase() {
     }
 
     abstract fun getNoteDao(): NoteDao
-
-
 }

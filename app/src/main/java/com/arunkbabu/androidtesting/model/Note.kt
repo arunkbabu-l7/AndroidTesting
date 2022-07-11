@@ -14,22 +14,30 @@ import kotlinx.parcelize.Parcelize
 data class Note(
     @NonNull
     @ColumnInfo(name = "title")
-    val title: String = "",
+    var title: String? = null,
 
     @ColumnInfo(name = "content")
-    val content: String = "",
+    var content: String = "",
 
     @ColumnInfo(name = "timestamp")
-    val timestamp: String = ""
+    var timestamp: String = "",
 ) : Parcelable {
 
     @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
-    private var id: Int = 0
+    var id: Int = 0
 
     @Ignore
-    constructor(id: Int, title: String, content: String, timestamp: String): this(title, content, timestamp) {
+    constructor(id: Int, @NonNull title: String, content: String, timestamp: String) : this(title, content, timestamp) {
         this.id = id
+    }
+
+    @Ignore
+    constructor(note: Note) : this() {
+        this.id = note.id
+        this.title = note.title
+        this.content = note.content
+        this.timestamp = note.timestamp
     }
 
     override fun equals(other: Any?): Boolean {

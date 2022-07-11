@@ -20,7 +20,6 @@ class DateUtilTest {
             assertEquals(today, DateUtil.getCurrentTimeStamp())
             println("Timestamp is generated correctly")
         }
-        TestUtil.note
     }
 
     @ParameterizedTest
