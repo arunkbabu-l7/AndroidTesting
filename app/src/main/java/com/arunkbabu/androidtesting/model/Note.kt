@@ -12,7 +12,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "notes")
 data class Note(
-    @NonNull
     @ColumnInfo(name = "title")
     var title: String? = null,
 
